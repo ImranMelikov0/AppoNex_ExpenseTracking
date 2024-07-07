@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "749784115492",
+    "project_id": "apponex-trackingexpense",
+    "storage_bucket": "apponex-trackingexpense.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749784115492:android:123fba9695fe48d40aabb1",
+        "android_client_info": {
+          "package_name": "com.imranmelikov.apponex_trackingexpense"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoCy56k0rRha1BcJKgJ7BLhq7cnExpkYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
