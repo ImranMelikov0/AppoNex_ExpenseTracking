@@ -64,4 +64,7 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
+
+    //Google places
+    implementation ("com.google.android.libraries.places:places:3.3.0")
 }

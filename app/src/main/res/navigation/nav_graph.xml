@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_editTransactionFragment_to_transactionDetailsFragment"
             app:destination="@id/transactionDetailsFragment" />
+        <action
+            android:id="@+id/action_editTransactionFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/transactionDetailsFragment"

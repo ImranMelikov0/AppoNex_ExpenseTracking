@@ -1,9 +1,12 @@
 package com.imranmelikov.apponex_trackingexpense.data
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.imranmelikov.apponex_trackingexpense.constants.SharedPrefConstant
 import com.imranmelikov.apponex_trackingexpense.domain.Repository
+import com.imranmelikov.apponex_trackingexpense.sharedpreferencesmanager.SharedPreferencesManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +19,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Provides
+    @Singleton
+    fun injectSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(SharedPrefConstant.myPref, Context.MODE_PRIVATE)
+    }
+    @Provides
+    @Singleton
+    fun injectSharedPreferencesManager(sharedPreferences: SharedPreferences): SharedPreferencesManager {
+        return SharedPreferencesManager(sharedPreferences)
+    }
     @Singleton
     @Provides
     fun injectFirebaseAuth():FirebaseAuth{
