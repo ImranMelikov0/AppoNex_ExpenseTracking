@@ -56,7 +56,7 @@ class TransactionDetailsFragment : Fragment() {
             var expense=totalTransaction.totalExpense.toDouble()
             when(transaction.transactionType){
                 FireStoreCollectionConstants.income->{
-                    totalBalance=(totalBalance-transaction.amount.toDouble())
+                    totalBalance-=transaction.amount.toDouble()
                     income-=transaction.amount.toDouble()
                 }
                 FireStoreCollectionConstants.expense->{

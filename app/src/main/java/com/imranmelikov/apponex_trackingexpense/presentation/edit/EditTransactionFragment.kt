@@ -22,6 +22,8 @@ import com.imranmelikov.apponex_trackingexpense.util.Resource
 import com.imranmelikov.apponex_trackingexpense.util.Status
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
+import kotlin.math.max
+import kotlin.math.min
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
@@ -73,27 +75,29 @@ class EditTransactionFragment : Fragment() {
                     val roundedAmount = Math.round(amount.text.toString().toDouble() * 10.0) / 10.0
                     val transaction=Transaction("",title.toString(),roundedAmount.toString(),addTransactionLayout.etTransactionType.text.toString()
                         ,addTransactionLayout.etWhen.text.toString(),note.toString())
-                    var totalBalance=totalTransaction.totalIncome.toDouble()
+                    var totalBalance=totalTransaction.totalBalance.toDouble()
                     var income=totalTransaction.totalIncome.toDouble()
                     var expense=totalTransaction.totalExpense.toDouble()
                     when {
                         transaction.transactionType==FireStoreCollectionConstants.income&&transactionArg.transactionType==FireStoreCollectionConstants.income -> {
-                            totalBalance = (totalBalance - transactionArg.amount.toDouble()+roundedAmount)
+                            totalBalance-=transactionArg.amount.toDouble()
+                            totalBalance+=roundedAmount
                             income-=transactionArg.amount.toDouble()
                             income+=roundedAmount
                         }
                         transaction.transactionType==FireStoreCollectionConstants.expense&&transactionArg.transactionType==FireStoreCollectionConstants.expense -> {
-                            totalBalance=(totalBalance + transactionArg.amount.toDouble() - roundedAmount)
+                            totalBalance+=transactionArg.amount.toDouble()
+                            totalBalance-=roundedAmount
                             expense-=transactionArg.amount.toDouble()
                             expense+=roundedAmount
                         }
                         transaction.transactionType==FireStoreCollectionConstants.income&&transactionArg.transactionType==FireStoreCollectionConstants.expense -> {
-                            totalBalance =(totalBalance -transactionArg.amount.toDouble() + roundedAmount )
+                            totalBalance +=roundedAmount
                             income+=roundedAmount
                             expense-=transactionArg.amount.toDouble()
                         }
                         transaction.transactionType==FireStoreCollectionConstants.expense&&transactionArg.transactionType==FireStoreCollectionConstants.income -> {
-                            totalBalance=((totalBalance - transactionArg.amount.toDouble())-roundedAmount)
+                            totalBalance-=roundedAmount
                             income-=transactionArg.amount.toDouble()
                             expense+=roundedAmount
                         }
@@ -101,10 +105,6 @@ class EditTransactionFragment : Fragment() {
                     totalTransaction.totalBalance=totalBalance.toString()
                     totalTransaction.totalIncome=income.toString()
                     totalTransaction.totalExpense= expense.toString()
-                    println(totalTransaction.totalBalance)
-                    println(totalBalance)
-                    println(income)
-                    println(expense)
                     viewModel.updateTotalTransaction(totalTransaction)
                     transaction.id=transactionArg.id
                     viewModel.deleteTransaction(transactionArg)
