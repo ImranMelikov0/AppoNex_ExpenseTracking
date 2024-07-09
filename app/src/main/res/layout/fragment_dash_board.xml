@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <include
                 android:id="@+id/total_balance_view"
                 layout="@layout/total_balance_view"
@@ -34,7 +33,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <LinearLayout
                 android:id="@+id/total_income_expense_view"
@@ -87,7 +85,6 @@
                 app:layout_constraintTop_toBottomOf="@id/title_recent_transaction"
                 tools:listitem="@layout/item_transaction_layout" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -115,6 +112,13 @@
         app:borderWidth="0dp"
         app:tint="@color/white"
         tools:ignore="UnusedAttribute" />
-
+    <ImageView
+        android:id="@+id/logout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/logout"
+        android:layout_gravity="top|end"
+       />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,6 +1,7 @@
 package com.imranmelikov.apponex_trackingexpense.presentation.dashboard
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,11 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.imranmelikov.apponex_trackingexpense.R
 import com.imranmelikov.apponex_trackingexpense.constants.ErrorMsgConstants
 import com.imranmelikov.apponex_trackingexpense.databinding.FragmentDashBoardBinding
 import com.imranmelikov.apponex_trackingexpense.domain.model.TotalTransaction
 import com.imranmelikov.apponex_trackingexpense.domain.model.Transaction
+import com.imranmelikov.apponex_trackingexpense.presentation.LoginActivity
 import com.imranmelikov.apponex_trackingexpense.presentation.MainActivity
 import com.imranmelikov.apponex_trackingexpense.sharedpreferencesmanager.SharedPreferencesManager
 import com.imranmelikov.apponex_trackingexpense.util.Resource
@@ -33,6 +36,8 @@ class DashBoardFragment : Fragment() {
     private val transactions = mutableListOf<Transaction>()
     @Inject
     lateinit var sharedPreferencesManager: SharedPreferencesManager
+    @Inject
+    lateinit var auth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,6 +70,14 @@ class DashBoardFragment : Fragment() {
         if (!checkTotalTransaction){
             viewModel.insertTotalTransaction(totalTransaction)
             sharedPreferencesManager.save("totalTransaction",true)
+        }
+
+        binding.logout.setOnClickListener {
+            auth.signOut()
+            val intent=Intent(requireActivity(),LoginActivity::class.java)
+            sharedPreferencesManager.save("totalTransaction",false)
+            startActivity(intent)
+            (activity as MainActivity).finishAffinity()
         }
 
         binding.btnAddTransaction.setOnClickListener {
